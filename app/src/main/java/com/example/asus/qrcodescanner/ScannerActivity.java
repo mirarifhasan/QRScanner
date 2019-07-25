@@ -1,10 +1,12 @@
 package com.example.asus.qrcodescanner;
 
 import android.Manifest;
+import android.content.ClipData;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -19,16 +21,19 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import github.nisrulz.qreader.QRDataListener;
 import github.nisrulz.qreader.QREader;
 
-public class HomeActivity extends AppCompatActivity {
+import android.content.ClipboardManager;
+
+public class ScannerActivity extends AppCompatActivity {
 
     private TextView txt_result;
     private SurfaceView surfaceView;
     private QREader qrEader;
+    private Button copyBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_scanner);
 
         //Request Permission
         Dexter.withActivity(this)
@@ -41,7 +46,7 @@ public class HomeActivity extends AppCompatActivity {
 
                     @Override
                     public void onPermissionDenied(PermissionDeniedResponse response) {
-                        Toast.makeText(HomeActivity.this, "You need permission", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ScannerActivity.this, "You need permission", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -49,6 +54,22 @@ public class HomeActivity extends AppCompatActivity {
 
                     }
                 }).check();
+
+        //Copy button function
+        copyBtn = (Button)findViewById(R.id.copy);
+
+        copyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("label", txt_result.getText());
+                clipboard.setPrimaryClip(clip);
+
+                Toast.makeText(ScannerActivity.this, "Copied to clipboard", Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 
     private void setupCamera() {
@@ -106,7 +127,7 @@ public class HomeActivity extends AppCompatActivity {
 
                     @Override
                     public void onPermissionDenied(PermissionDeniedResponse response) {
-                        Toast.makeText(HomeActivity.this, "You need permission", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ScannerActivity.this, "You need permission", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -130,7 +151,7 @@ public class HomeActivity extends AppCompatActivity {
 
                     @Override
                     public void onPermissionDenied(PermissionDeniedResponse response) {
-                        Toast.makeText(HomeActivity.this, "You need permission", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ScannerActivity.this, "You need permission", Toast.LENGTH_LONG).show();
                     }
 
                     @Override

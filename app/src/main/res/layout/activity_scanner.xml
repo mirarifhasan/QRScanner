@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity"
+    tools:context=".ScannerActivity"
     android:gravity="center">
 
     <FrameLayout
@@ -14,7 +14,8 @@
         <SurfaceView
             android:id="@+id/camera_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_alignTop="@+id/frame" />
 
         <View
             android:layout_gravity="center"
@@ -39,17 +40,32 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Hello"
+            android:text="Place camera on QR"
             android:textColor="@color/white"
             android:textSize="20sp"/>
 
-        <ToggleButton
-            android:id="@+id/btn_enable_disable"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textOff="STOP"
-            android:textOn="START"
-            android:checked="false"/>
+            android:orientation="horizontal">
+
+            <ToggleButton
+                android:layout_weight="1"
+                android:id="@+id/btn_enable_disable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textOff="START"
+                android:textOn="STOP"
+                android:checked="true"/>
+
+            <Button
+                android:layout_weight="3"
+                android:id="@+id/copy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="COPY"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
